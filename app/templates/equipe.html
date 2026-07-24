@@ -1,0 +1,31 @@
+{% extends "base.html" %}{% block titulo %}Equipe{% endblock %}
+{% block h1 %}Equipe e ciência documental{% endblock %}
+{% block conteudo %}
+<table>
+<tr><th>Nome</th><th>Cargo</th><th>Unidade</th><th>Conselho</th>{% for d in documentos %}<th><code>{{ d.codigo }}</code></th>{% endfor %}</tr>
+{% for c in equipe %}
+<tr>
+  <td><strong>{{ c.nome }}</strong></td><td>{{ c.cargo }}</td><td>{{ c.unidade }}</td>
+  <td>{% if c.conselho %}{{ c.conselho }} {{ c.registro }}{% else %}—{% endif %}</td>
+  {% for d in documentos %}
+  <td>{% if ciencia.get(c.id, {}).get(d.codigo) %}<span class="pill verde">{{ ciencia[c.id][d.codigo] }}</span>
+      {% else %}<form method="post" action="/ciencia" class="inline">
+        <input type="hidden" name="colaborador_id" value="{{ c.id }}">
+        <input type="hidden" name="codigo" value="{{ d.codigo }}">
+        <button class="mini">registrar</button></form>{% endif %}</td>
+  {% endfor %}
+</tr>
+{% endfor %}
+</table>
+{% if not equipe %}<p class="vazio">Nenhum colaborador cadastrado.</p>{% endif %}
+
+<h2>Novo colaborador</h2>
+<form method="post" action="/equipe" class="form-linha">
+  <input name="nome" placeholder="Nome completo" required>
+  <input name="cargo" placeholder="Cargo">
+  <select name="unidade_id">{% for u in unidades %}<option value="{{ u.id }}">{{ u.nome }}</option>{% endfor %}</select>
+  <input name="conselho" placeholder="Conselho (CRP, CRM…)" size="10">
+  <input name="registro" placeholder="Registro" size="12">
+  <button>Cadastrar</button>
+</form>
+{% endblock %}

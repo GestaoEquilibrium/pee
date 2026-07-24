@@ -1,0 +1,6 @@
+{% extends "base.html" %}{% block titulo %}{{ doc.codigo }}{% endblock %}
+{% block h1 %}{% endblock %}
+{% block conteudo %}
+<p><a href="/documentos">&larr; Documentos</a></p>
+<article class="doc">{{ corpo|safe }}</article>
+{% endblock %}

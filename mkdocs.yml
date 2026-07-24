@@ -1,0 +1,93 @@
+site_name: Padrão Equilibrium de Excelência
+site_description: Padrão Equilibrium de Excelência — sistema documental do Grupo Equilibrium
+copyright: Equilibrium Med Center LTDA — CNPJ 34.032.586/0001-98
+
+theme:
+  name: material
+  language: pt-BR
+  logo: assets/logo.png
+  favicon: assets/favicon.png
+  palette:
+    - scheme: default
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-night
+        name: Modo escuro
+    - scheme: slate
+      primary: custom
+      accent: custom
+      toggle:
+        icon: material/weather-sunny
+        name: Modo claro
+  font:
+    text: Source Sans 3
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - navigation.indexes
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.action.edit
+    - toc.follow
+
+extra_css:
+  - stylesheets/extra.css
+
+plugins:
+  - search:
+      lang: pt
+  - git-revision-date-localized:
+      type: date
+      locale: pt_BR
+      fallback_to_build_date: true
+  - with-pdf:
+      output_path: pee-equilibrium.pdf
+      cover_title: Padrão Equilibrium de Excelência
+      cover_subtitle: Acervo normativo — versão gerada para auditoria
+      author: Equilibrium Med Center LTDA
+      copyright: CNPJ 34.032.586/0001-98
+      toc_level: 3
+      enabled_if_env: ENABLE_PDF_EXPORT
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+
+nav:
+  - Início: index.md
+  - 0 · Marca e promessa:
+      - 0-marca/index.md
+      - PEE-0-001 — Identidade Institucional: 0-marca/pee-0-001.md
+      - PEE-0-002 — Carta de Inegociáveis: 0-marca/pee-0-002.md
+      - PEE-0-003 — Níveis de Exigência: 0-marca/pee-0-003.md
+      - PEE-0-004 — Identidade Visual e Verbal: 0-marca/pee-0-004.md
+  - 1 · Implantação:
+      - 1-implantacao/index.md
+  - 2 · Operação:
+      - 2-operacao/index.md
+  - 3 · Gestão:
+      - 3-gestao/index.md
+  - 4 · Controle:
+      - 4-controle/index.md
+      - PEE-4-001 — Controle de Documentos: 4-controle/pee-4-001.md
+      - Modelo de documento: 4-controle/modelo-documento.md
+      - Lista Mestra: 4-controle/lista-mestra.md
+      - Controle de Vencimentos: 4-controle/controle-vencimentos.md
+  - 5 · Formação:
+      - 5-formacao/index.md

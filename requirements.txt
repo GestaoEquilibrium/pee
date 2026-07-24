@@ -1,0 +1,7 @@
+# Versões fixadas propositalmente.
+# O MkDocs 2.0 anunciado remove o sistema de plugins sem caminho de migração.
+# Não atualizar sem validar o build completo.
+mkdocs==1.6.1
+mkdocs-material==9.6.*
+mkdocs-git-revision-date-localized-plugin==1.3.*
+mkdocs-with-pdf==0.9.3

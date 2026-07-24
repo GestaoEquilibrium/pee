@@ -1,0 +1,25 @@
+{% extends "base.html" %}{% block titulo %}Auditorias{% endblock %}
+{% block h1 %}Auditorias de conformidade{% endblock %}
+{% block conteudo %}
+<table>
+<tr><th>Unidade</th><th>Data</th><th>Auditor</th><th>Progresso</th><th>Índice</th><th>Status</th></tr>
+{% for a in auditorias %}
+<tr>
+  <td><a href="/auditorias/{{ a.id }}"><strong>{{ a.unidade }}</strong></a></td>
+  <td>{{ a.data }}</td><td>{{ a.auditor }}</td>
+  <td>{{ a.respondidos }}/{{ a.total }}</td>
+  <td>{% if a.reprova %}<span class="pill vermelho">Reprovada</span>
+      {% elif a.score is not none %}<span class="pill {{ 'verde' if a.score >= 90 else 'ambar' if a.score >= 75 else 'vermelho' }}">{{ a.score }}%</span>
+      {% else %}—{% endif %}</td>
+  <td>{{ a.status }}</td>
+</tr>
+{% endfor %}
+</table>
+
+<h2>Nova auditoria</h2>
+<form method="post" action="/auditorias" class="form-linha">
+  <select name="unidade_id">{% for u in unidades %}<option value="{{ u.id }}">{{ u.nome }}</option>{% endfor %}</select>
+  <input name="auditor" placeholder="Auditor responsável" required>
+  <button>Abrir auditoria</button>
+</form>
+{% endblock %}

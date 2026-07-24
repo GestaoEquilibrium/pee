@@ -1,0 +1,42 @@
+{% extends "base.html" %}{% block titulo %}Painel{% endblock %}
+{% block h1 %}Painel{% endblock %}
+{% block conteudo %}
+<div class="cards">
+  <div class="card"><span class="num">{{ unidades|length }}</span><span class="rot">Unidades</span></div>
+  <div class="card"><span class="num">{{ docs }}</span><span class="rot">Documentos vigentes</span></div>
+  <div class="card {% if alertas %}alerta{% endif %}"><span class="num">{{ alertas|length }}</span><span class="rot">Vencimentos em risco</span></div>
+  <div class="card"><span class="num">{{ cientes }}/{{ equipe }}</span><span class="rot">Ciência da Carta</span></div>
+</div>
+
+<h2>Vencimentos que exigem ação</h2>
+{% if alertas %}
+<table>
+<tr><th>Item</th><th>Unidade</th><th>Órgão</th><th>Validade</th><th>Situação</th></tr>
+{% for a in alertas %}
+<tr>
+  <td>{{ a.item }}</td><td>{{ a.unidade }}</td><td>{{ a.orgao }}</td>
+  <td>{{ a.validade }}</td>
+  <td><span class="pill {{ a.classe }}">{{ a.rotulo }}
+    {%- if a.dias is not none %} · {{ a.dias if a.dias >= 0 else -a.dias }} dias {{ 'restantes' if a.dias >= 0 else 'em atraso' }}{% endif %}</span></td>
+</tr>
+{% endfor %}
+</table>
+{% else %}<p class="vazio">Nenhum vencimento em risco.</p>{% endif %}
+
+<h2>Auditorias recentes</h2>
+{% if auditorias %}
+<table>
+<tr><th>Unidade</th><th>Data</th><th>Auditor</th><th>Progresso</th><th>Índice</th></tr>
+{% for a in auditorias %}
+<tr>
+  <td><a href="/auditorias/{{ a.id }}">{{ a.unidade }}</a></td>
+  <td>{{ a.data }}</td><td>{{ a.auditor }}</td>
+  <td>{{ a.respondidos }}/{{ a.total }}</td>
+  <td>{% if a.reprova %}<span class="pill vermelho">Reprovada</span>
+      {% elif a.score is not none %}<span class="pill {{ 'verde' if a.score >= 90 else 'ambar' if a.score >= 75 else 'vermelho' }}">{{ a.score }}%</span>
+      {% else %}—{% endif %}</td>
+</tr>
+{% endfor %}
+</table>
+{% else %}<p class="vazio">Nenhuma auditoria registrada. <a href="/auditorias">Abrir a primeira</a>.</p>{% endif %}
+{% endblock %}

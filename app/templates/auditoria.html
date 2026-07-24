@@ -1,0 +1,37 @@
+{% extends "base.html" %}{% block titulo %}Auditoria{% endblock %}
+{% block h1 %}{{ a.unidade }} · {{ a.data }}{% endblock %}
+{% block conteudo %}
+<p><a href="/auditorias">&larr; Auditorias</a></p>
+<div class="cards">
+  <div class="card"><span class="num">{{ respondidos }}/{{ total }}</span><span class="rot">Itens respondidos</span></div>
+  <div class="card {% if reprova %}alerta{% endif %}">
+    <span class="num">{% if reprova %}Reprovada{% elif score is not none %}{{ score }}%{% else %}—{% endif %}</span>
+    <span class="rot">Índice de conformidade</span></div>
+</div>
+{% if reprova %}<p class="aviso">Há violação de item inegociável. A auditoria é reprovada independentemente da pontuação obtida nos demais itens.</p>{% endif %}
+
+{% for i in itens %}
+<div class="item {% if i.resultado == 'conforme' %}ok{% elif i.resultado == 'nao' %}nok{% endif %}">
+  <div class="item-cab">
+    <span class="pill {{ 'vermelho' if i.nivel == 'PADRAO' else 'ambar' if i.nivel == 'DIRETRIZ' else 'cinza' }}">{{ rotulo[i.nivel] }}</span>
+    {% if i.inegociavel %}<span class="pill vermelho">Inegociável</span>{% endif %}
+    <small>Caderno {{ i.caderno }} · {{ i.referencia }}</small>
+  </div>
+  <p>{{ i.descricao }}</p>
+  <form method="post" action="/auditorias/{{ a.id }}/item/{{ i.id }}" class="inline">
+    <select name="resultado">
+      <option value="" {% if not i.resultado %}selected{% endif %}>— avaliar —</option>
+      <option value="conforme" {% if i.resultado == 'conforme' %}selected{% endif %}>Conforme</option>
+      <option value="nao" {% if i.resultado == 'nao' %}selected{% endif %}>Não conforme</option>
+      <option value="na" {% if i.resultado == 'na' %}selected{% endif %}>Não aplicável</option>
+    </select>
+    <input name="nota" value="{{ i.nota or '' }}" placeholder="Evidência ou observação">
+    <button>Salvar</button>
+  </form>
+</div>
+{% endfor %}
+
+{% if a.status != 'encerrada' %}
+<form method="post" action="/auditorias/{{ a.id }}/encerrar"><button class="principal">Encerrar auditoria</button></form>
+{% endif %}
+{% endblock %}

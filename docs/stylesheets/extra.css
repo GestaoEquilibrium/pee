@@ -1,0 +1,112 @@
+/* Identidade visual — Grupo Equilibrium
+   Cores extraídas do arquivo original da marca. */
+
+:root {
+  --eq-azul:        #1068B2;
+  --eq-azul-escuro: #0B4C82;
+  --eq-azul-claro:  #E7F1F9;
+  --eq-teal:        #56C4CF;
+  --eq-teal-escuro: #2E8E99;
+  --eq-teal-claro:  #E4F6F8;
+
+  --md-primary-fg-color:        var(--eq-azul);
+  --md-primary-fg-color--light: var(--eq-teal);
+  --md-primary-fg-color--dark:  var(--eq-azul-escuro);
+  --md-accent-fg-color:         var(--eq-teal-escuro);
+}
+
+[data-md-color-scheme="slate"] {
+  --md-primary-fg-color:  var(--eq-azul-escuro);
+  --md-accent-fg-color:   var(--eq-teal);
+  --md-typeset-a-color:   var(--eq-teal);
+}
+
+/* Marca no topo */
+.md-header__button.md-logo img {
+  height: 1.6rem;
+  width: auto;
+}
+
+/* Capa da página inicial */
+.eq-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 2.5rem 1rem 2rem;
+  margin-bottom: 2rem;
+  border-bottom: 3px solid var(--eq-teal);
+}
+.eq-hero img { max-width: 260px; height: auto; }
+[data-md-color-scheme="default"] .eq-hero img.eq-dark  { display: none; }
+[data-md-color-scheme="slate"]   .eq-hero img.eq-light { display: none; }
+.eq-hero .eq-sub {
+  margin-top: 1rem;
+  font-size: .78rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--eq-teal-escuro);
+}
+
+/* Tabelas */
+.md-typeset table:not([class]) th {
+  background-color: var(--eq-azul);
+  color: #fff;
+  font-weight: 600;
+}
+.md-typeset table:not([class]) tr:hover {
+  background-color: var(--eq-azul-claro);
+}
+[data-md-color-scheme="slate"] .md-typeset table:not([class]) tr:hover {
+  background-color: rgba(86,196,207,.10);
+}
+
+/* Estados de documento */
+.doc-status-vigente,
+.doc-status-vencido,
+.doc-status-rascunho {
+  display: inline-block;
+  padding: .12em .6em;
+  border-radius: 999px;
+  font-size: .74rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.doc-status-vigente  { background: #E1F5EE; color: #0F6E56; }
+.doc-status-vencido  { background: #FCEBEB; color: #A32D2D; }
+.doc-status-rascunho { background: #FAEEDA; color: #854F0B; }
+
+/* Cartões de navegação da home */
+.eq-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.eq-cards a {
+  display: block;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-left: 3px solid var(--eq-teal);
+  border-radius: 0 6px 6px 0;
+  text-decoration: none !important;
+  transition: border-color .15s, background .15s;
+}
+.eq-cards a:hover {
+  border-left-color: var(--eq-azul);
+  background: var(--eq-azul-claro);
+}
+[data-md-color-scheme="slate"] .eq-cards a:hover { background: rgba(86,196,207,.08); }
+.eq-cards strong { color: var(--eq-azul); display: block; margin-bottom: .2rem; }
+[data-md-color-scheme="slate"] .eq-cards strong { color: var(--eq-teal); }
+.eq-cards span { font-size: .8rem; color: var(--md-default-fg-color--light); }
+
+/* Rodapé de identificação institucional */
+.eq-legal {
+  margin-top: 3rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+  font-size: .74rem;
+  color: var(--md-default-fg-color--light);
+  text-align: center;
+}

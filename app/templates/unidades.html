@@ -1,0 +1,28 @@
+{% extends "base.html" %}{% block titulo %}Unidades{% endblock %}
+{% block h1 %}Unidades{% endblock %}
+{% block conteudo %}
+<table>
+<tr><th>Unidade</th><th>Cidade</th><th>Tipo</th><th>Status</th><th>Equipe</th><th>Pendências</th></tr>
+{% for u in unidades %}
+<tr>
+  <td><strong>{{ u.nome }}</strong><br><small>{{ u.cnpj }}</small></td>
+  <td>{{ u.cidade }}{% if u.uf %}/{{ u.uf }}{% endif %}</td>
+  <td>{{ 'Própria' if u.tipo == 'propria' else 'Franquia' }}</td>
+  <td><span class="pill {{ 'verde' if u.status == 'operacao' else 'ambar' }}">{{ u.status }}</span></td>
+  <td>{{ u.equipe }}</td>
+  <td>{% if u.pendencias %}<span class="pill vermelho">{{ u.pendencias }} vencidos</span>{% else %}<span class="pill verde">Em dia</span>{% endif %}</td>
+</tr>
+{% endfor %}
+</table>
+
+<h2>Nova unidade</h2>
+<form method="post" action="/unidades" class="form-linha">
+  <input name="nome" placeholder="Nome da unidade" required>
+  <input name="cidade" placeholder="Cidade">
+  <input name="uf" placeholder="UF" size="3">
+  <input name="cnpj" placeholder="CNPJ">
+  <select name="tipo"><option value="propria">Própria</option><option value="franquia">Franquia</option></select>
+  <select name="status"><option value="implantacao">Implantação</option><option value="operacao">Operação</option></select>
+  <button>Cadastrar</button>
+</form>
+{% endblock %}

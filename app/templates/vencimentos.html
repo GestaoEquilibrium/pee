@@ -1,0 +1,27 @@
+{% extends "base.html" %}{% block titulo %}Vencimentos{% endblock %}
+{% block h1 %}Controle de vencimentos{% endblock %}
+{% block conteudo %}
+<table>
+<tr><th>Item</th><th>Unidade</th><th>Órgão</th><th>Validade</th><th>Situação</th><th>Renovar</th></tr>
+{% for v in vencimentos %}
+{% set s = situacao(v.validade) %}
+<tr>
+  <td><strong>{{ v.item }}</strong>{% if v.obs %}<br><small>{{ v.obs }}</small>{% endif %}</td>
+  <td>{{ v.unidade }}</td><td>{{ v.orgao }}</td><td>{{ v.validade }}</td>
+  <td><span class="pill {{ s[1] }}">{{ s[0] }}{% if s[2] is not none %} · {{ s[2] if s[2] >= 0 else -s[2] }}d{% endif %}</span></td>
+  <td><form method="post" action="/vencimentos/{{ v.id }}/renovar" class="inline">
+      <input type="date" name="validade" required><button>Renovar</button></form></td>
+</tr>
+{% endfor %}
+</table>
+
+<h2>Novo item</h2>
+<form method="post" action="/vencimentos" class="form-linha">
+  <select name="unidade_id">{% for u in unidades %}<option value="{{ u.id }}">{{ u.nome }}</option>{% endfor %}</select>
+  <input name="item" placeholder="Item (ex.: AVCB)" required>
+  <input name="orgao" placeholder="Órgão emissor">
+  <input type="date" name="validade" required>
+  <input name="obs" placeholder="Observação">
+  <button>Adicionar</button>
+</form>
+{% endblock %}

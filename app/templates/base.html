@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block titulo %}PEE{% endblock %} · Padrão Equilibrium de Excelência</title>
+<link rel="stylesheet" href="/static/style.css">
+<link rel="icon" href="/static/favicon.png">
+</head>
+<body>
+<header class="topo">
+  <a class="marca" href="/"><img src="/static/logo.png" alt=""><span>Padrão Equilibrium de Excelência</span></a>
+  <nav>
+    <a href="/">Painel</a>
+    <a href="/unidades">Unidades</a>
+    <a href="/documentos">Documentos</a>
+    <a href="/vencimentos">Vencimentos</a>
+    <a href="/auditorias">Auditorias</a>
+    <a href="/equipe">Equipe</a>
+  </nav>
+</header>
+<main>
+  <h1>{% block h1 %}{% endblock %}</h1>
+  {% block conteudo %}{% endblock %}
+</main>
+<footer>Equilibrium Med Center LTDA · CNPJ 34.032.586/0001-98 · Documento de circulação interna · {{ hoje }}</footer>
+</body>
+</html>

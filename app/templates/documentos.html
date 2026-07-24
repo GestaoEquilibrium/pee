@@ -1,0 +1,17 @@
+{% extends "base.html" %}{% block titulo %}Documentos{% endblock %}
+{% block h1 %}Documentos{% endblock %}
+{% block conteudo %}
+<p class="nota">Lidos diretamente dos arquivos Markdown do repositório. O Git continua sendo a fonte da verdade — esta tela apenas indexa.</p>
+<table>
+<tr><th>Código</th><th>Título</th><th>Caderno</th><th>Nível</th><th>Versão</th></tr>
+{% for d in documentos %}
+<tr>
+  <td><a href="/documentos/{{ d.codigo }}"><code>{{ d.codigo }}</code></a></td>
+  <td>{{ d.titulo }}</td>
+  <td>{{ d.caderno }}</td>
+  <td>{% if d.nivel %}<span class="pill {{ 'vermelho' if d.nivel == 'PADRAO' else 'ambar' if d.nivel == 'DIRETRIZ' else 'cinza' }}">{{ rotulo[d.nivel] }}</span>{% else %}—{% endif %}</td>
+  <td>{{ d.versao }}</td>
+</tr>
+{% endfor %}
+</table>
+{% endblock %}
